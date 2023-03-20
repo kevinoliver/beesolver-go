@@ -20,6 +20,10 @@ func NewValidResult(word string) Result {
 	return Result{word, true, false}
 }
 
+func (result Result) Word() string {
+	return result.word
+}
+
 func (result Result) IsValid() bool {
 	return result.isValid
 }
