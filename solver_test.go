@@ -33,5 +33,3 @@ func TestSolve(t *testing.T) {
 		t.Error("Expected a pangram")
 	}
 }
-
-// todo test sorting
