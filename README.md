@@ -8,7 +8,8 @@ Their dictionary is not the same as the one included so you find missing words a
 
 ```
 $ go build *.go
-$ Usage: beesolver REQUIRED_LETTER OTHER_LETTERS
+$ ./beesolver --help
+Usage: beesolver REQUIRED_LETTER OTHER_LETTERS
       -dict string
             Path to a custom dictionary
       -help
