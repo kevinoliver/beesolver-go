@@ -6,10 +6,13 @@ import (
 )
 
 func TestSolve(t *testing.T) {
-	dictionary := NewDictionaryFromReader(strings.NewReader("ogselmd\ndoom\ndogs\ndotty\nseem\n"))
+	dictionary, err := NewDictionaryFromReader(strings.NewReader("ogselmd\ndoom\ndogs\ndotty\nseem\n"))
+	if err != nil {
+		t.Error(err)
+	}
 	puzzle, err := NewPuzzle('d', "ogselm")
 	if err != nil {
-		t.Fatal()
+		t.Error(err)
 	}
 	solver := Solver{dictionary, puzzle}
 	results := solver.Solve()

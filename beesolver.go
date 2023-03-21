@@ -35,9 +35,12 @@ func main() {
 	}
 	var dictionary Dictionary
 	if *dictionaryPath == "" {
-		dictionary = NewDictionary()
+		dictionary, err = NewDictionary()
 	} else {
-		dictionary = NewDictionaryFromPath(*dictionaryPath)
+		dictionary, err = NewDictionaryFromPath(*dictionaryPath)
+	}
+	if err != nil {
+		usageAndExit(err)
 	}
 
 	fmt.Println("🐝")

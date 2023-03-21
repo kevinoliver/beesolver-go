@@ -31,13 +31,21 @@ func assertFalse(t *testing.T, value bool) {
 }
 
 func TestNewDictionaryFromPathFiltersOutShortWords(t *testing.T) {
-	words := NewDictionaryFromReader(strings.NewReader(dictFile)).Words()
+	d, err := NewDictionaryFromReader(strings.NewReader(dictFile))
+	if err != nil {
+		t.Error(err)
+	}
+	words := d.Words()
 	assertTrue(t, contains(words, "dogs"))
 	assertFalse(t, contains(words, "cat"))
 }
 
 func TestNewDictionaryFromStringRemovesDuplicates(t *testing.T) {
-	words := NewDictionaryFromReader(strings.NewReader("dogs\ndogs\ndogs\n")).Words()
+	d, err := NewDictionaryFromReader(strings.NewReader("dogs\ndogs\ndogs\n"))
+	if err != nil {
+		t.Error(err)
+	}
+	words := d.Words()
 	assertTrue(t, contains(words, "dogs"))
 	if len(words) != 1 {
 		t.Errorf("Expected 1 word, got %d. Words: %s", len(words), words)
@@ -45,6 +53,10 @@ func TestNewDictionaryFromStringRemovesDuplicates(t *testing.T) {
 }
 
 func TestNewDictionaryFromStringNormalizesAccents(t *testing.T) {
-	words := NewDictionaryFromReader(strings.NewReader(dictFile)).Words()
+	d, err := NewDictionaryFromReader(strings.NewReader(dictFile))
+	if err != nil {
+		t.Error(err)
+	}
+	words := d.Words()
 	assertTrue(t, contains(words, "eclair"))
 }

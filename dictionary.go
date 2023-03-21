@@ -4,7 +4,6 @@ import (
 	"bufio"
 	_ "embed"
 	"io"
-	"log"
 	"os"
 	"strings"
 	"unicode"
@@ -31,20 +30,20 @@ type Dictionary struct {
 	words []string
 }
 
-func NewDictionary() Dictionary {
+func NewDictionary() (Dictionary, error) {
 	return NewDictionaryFromReader(strings.NewReader(defaultDictionary))
 }
 
-func NewDictionaryFromPath(path string) Dictionary {
+func NewDictionaryFromPath(path string) (Dictionary, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		log.Fatal(err)
+		return Dictionary{}, err
 	}
 	defer file.Close()
 	return NewDictionaryFromReader(file)
 }
 
-func NewDictionaryFromReader(reader io.Reader) Dictionary {
+func NewDictionaryFromReader(reader io.Reader) (Dictionary, error) {
 	uniqueWords := make(map[string]bool)
 	words := []string{}
 	scanner := bufio.NewScanner(reader)
@@ -55,7 +54,7 @@ func NewDictionaryFromReader(reader io.Reader) Dictionary {
 		line := scanner.Text()
 		line, err := removeAccents(line)
 		if err != nil {
-			log.Fatal(err)
+			return Dictionary{}, err
 		}
 		if len(line) > 3 {
 			_, exists := uniqueWords[line]
@@ -65,7 +64,7 @@ func NewDictionaryFromReader(reader io.Reader) Dictionary {
 			}
 		}
 	}
-	return Dictionary{words}
+	return Dictionary{words}, nil
 }
 
 func (dict Dictionary) Words() []string {
