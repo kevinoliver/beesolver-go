@@ -17,20 +17,20 @@ func TestSolve(t *testing.T) {
 	solver := Solver{dictionary, puzzle}
 	results := solver.Solve()
 	if len(results) != 3 {
-		t.Fatalf("Expected 3 results, got %d", len(results))
+		t.Errorf("Expected 3 results, got %d", len(results))
 	}
 	if results[0].Word() != "dogs" {
-		t.Fatalf("Expected 'dogs' got '%s'", results[0].Word())
+		t.Errorf("Expected 'dogs' got '%s'", results[0].Word())
 	}
 	if results[1].Word() != "doom" {
-		t.Fatalf("Expected 'doom' got '%s'", results[1].Word())
+		t.Errorf("Expected 'doom' got '%s'", results[1].Word())
 	}
 	res2 := results[2]
 	if res2.Word() != "ogselmd" {
-		t.Fatalf("Expected 'ogselmd' got '%s'", res2.Word())
+		t.Errorf("Expected 'ogselmd' got '%s'", res2.Word())
 	}
 	if !res2.IsPangram() {
-		t.Fatal("Expected a pangram")
+		t.Error("Expected a pangram")
 	}
 }
 
