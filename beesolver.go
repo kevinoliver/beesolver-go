@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
@@ -33,6 +34,8 @@ func main() {
 	if err != nil {
 		usageAndExit(err)
 	}
+
+	start := time.Now()
 	var dictionary Dictionary
 	var dictionaryName string
 	if *dictionaryPath == "" {
@@ -45,6 +48,7 @@ func main() {
 	if err != nil {
 		usageAndExit(err)
 	}
+	elapsedDictionary := time.Since(start)
 
 	fmt.Println("🐝")
 	fmt.Println("Hello and welcome to Spelling Bee Solver")
@@ -59,19 +63,23 @@ func main() {
 	fmt.Println("🐝🐝🐝🐝")
 
 	solver := Solver{dictionary, puzzle}
+	start = time.Now()
 	solutions := solver.Solve()
+	elapsedSolve := time.Since(start)
 
 	fmt.Println("🐝🐝🐝🐝🐝")
 	fmt.Println("Solved!")
 	fmt.Println()
-	fmt.Println("  Words: ", len(solutions))
+	fmt.Println("  Words:", len(solutions))
 	numPangrams := 0
 	for _, solution := range solutions {
 		if solution.IsPangram() {
 			numPangrams++
 		}
 	}
-	fmt.Println("  Pangrams: ", numPangrams)
+	fmt.Println("  Pangrams:", numPangrams)
+	fmt.Printf("  Time loading dictionary: %d ms\n", elapsedDictionary.Milliseconds())
+	fmt.Printf("  Time solving: %d ms\n", elapsedSolve.Milliseconds())
 	fmt.Println("🐝🐝🐝🐝🐝🐝")
 
 	if *wordsOutput {
