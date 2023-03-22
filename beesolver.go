@@ -34,10 +34,13 @@ func main() {
 		usageAndExit(err)
 	}
 	var dictionary Dictionary
+	var dictionaryName string
 	if *dictionaryPath == "" {
 		dictionary, err = NewDictionary()
+		dictionaryName = "(default)"
 	} else {
 		dictionary, err = NewDictionaryFromPath(*dictionaryPath)
+		dictionaryName = *dictionaryPath
 	}
 	if err != nil {
 		usageAndExit(err)
@@ -48,11 +51,10 @@ func main() {
 	fmt.Println("🐝🐝")
 
 	fmt.Println("🐝🐝🐝")
-	fmt.Println("Required Letter: ", string(required))
-	fmt.Println("Other Letters:   ", others)
-	if *dictionaryPath != "" {
-		fmt.Println("Dictionary:      ", *dictionaryPath)
-	}
+	fmt.Println("Required Letter:  ", string(required))
+	fmt.Println("Other Letters:    ", others)
+	fmt.Println("Dictionary:       ", dictionaryName)
+	fmt.Println("Dictionary words: ", len(dictionary.Words()))
 	fmt.Println("Solving now")
 	fmt.Println("🐝🐝🐝🐝")
 
