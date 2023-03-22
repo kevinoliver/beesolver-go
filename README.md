@@ -27,3 +27,10 @@ Usage: beesolver REQUIRED_LETTER OTHER_LETTERS
 This was an excuse to play around with Go. I come from a Java background and
 [did this in Java first](https://github.com/kevinoliver/beesolver-java). Unsurprisingly,
 until I learn the language's idioms and conventions, this code feels quite Java-y.
+
+## Development
+
+Run all tests:
+```
+$ go test -v ./...
+```
