@@ -126,7 +126,9 @@ func validate(dictionaryPath string) error {
 }
 
 func beeUsage() {
-	fmt.Printf("Usage: beesolver REQUIRED_LETTER OTHER_LETTERS\n")
+	fmt.Println("Usage: beesolver REQUIRED_LETTER OTHER_LETTERS")
+	fmt.Println("  REQUIRED_LETTER       The letter required in all words")
+	fmt.Println("  OTHER_LETTERS         The 6 other allowed letters")
 	flag.PrintDefaults()
 }
 
